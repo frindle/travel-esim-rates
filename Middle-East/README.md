@@ -20,6 +20,12 @@ this region (site/JS-rendering issues) and were omitted rather than guessed. See
 [root README](../README.md) for the rate-row format and confidence legend, and [providers.md](../providers.md)
 for provider-level traits/reputation.
 
+## Regional (multi-country) plans
+
+See [_Regional.md](_Regional.md) for Middle-East-wide eSIM bundles (Airalo "Middle East and North
+Africa", Holafly "Middle East") that cover multiple countries under one eSIM, distinct from the
+single-country pages above and the worldwide plans in [Global/README.md](../Global/README.md).
+
 ## Regulatory notes (VoIP / eSIM quirks)
 
 - **UAE**: WhatsApp/Skype voice & video calls are blocked by telecom regulation on all networks — data/eSIM messaging still works. See [United-Arab-Emirates.md](United-Arab-Emirates.md#notes).

@@ -11,3 +11,8 @@ Country rate pages for the Oceania region. Add a country by creating `Oceania/<C
 
 See the [root README](../README.md) for the rate-row format and confidence legend, and
 [providers.md](../providers.md) for provider-level traits/reputation.
+
+## Regional (multi-country) plans
+
+See [_Regional.md](_Regional.md) for Oceania-wide bundles (Airalo, Holafly) covering multiple
+Pacific countries on one eSIM.

@@ -32,6 +32,12 @@ Rates below were researched 2026-09-17 via direct web search/fetch of provider a
 | Bolivia | [Bolivia](Bolivia.md) | ✅ 18 sourced rows |
 | Uruguay | [Uruguay](Uruguay.md) | ✅ ~20/21 sourced rows |
 
+## Regional (multi-country) plans
+
+Multi-country bundles covering a defined Americas sub-region (Caribbean, Latin America, Central
+America, North America) — not single-country, not global — are tracked separately in
+[_Regional.md](_Regional.md).
+
 See the [root README](../README.md) for the format/legend and [providers.md](../providers.md) for traits.
 
 ## Notes

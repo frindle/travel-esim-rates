@@ -23,5 +23,10 @@ Country rate pages for the Asia region. Add a country by creating `Asia/<Country
 | Thailand | [Thailand](Thailand.md) | ✅ 23 rows, 9 providers (+1 unverified "HelloRoam" ❓ row) |
 | Vietnam | [Vietnam](Vietnam.md) | ✅ 20 rows, 9 providers |
 
+## Asia-wide regional plans
+
+Multi-country eSIMs covering several Asian countries on one plan (not single-country, not global) —
+see [_Regional.md](_Regional.md) for Airalo, Saily, Holafly, and aloSIM Asia bundles with coverage counts.
+
 See the [root README](../README.md) for the rate-row format and confidence legend, and
 [providers.md](../providers.md) for provider-level traits/reputation.

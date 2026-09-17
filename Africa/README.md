@@ -13,6 +13,10 @@ Country rate pages for the Africa region. Add a country by creating `Africa/<Cou
 | Ghana | [Ghana](Ghana.md) | ✅ 12 rows, 6 providers |
 | Ethiopia | [Ethiopia](Ethiopia.md) | ⚠️ 6 rows, 3 providers — thinnest market found (see page Notes) |
 
+See [_Regional.md](_Regional.md) for **Africa-wide regional plans** (a single eSIM covering multiple
+African countries — Airalo, Saily, Holafly, Nomad, Jetpac), distinct from the single-country pages
+below and from the worldwide plans in [Global/README.md](../Global/README.md).
+
 Note: eSIM coverage/carrier availability is thinner in parts of Africa — each country page's
 **Carrier resolution** section flags which providers confirm a real local-network tie-in vs. those
 that don't disclose one. Ethiopia in particular came back with several providers (Holafly, Saily, Maya
