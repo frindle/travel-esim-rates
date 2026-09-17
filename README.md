@@ -63,7 +63,7 @@ produced no usable data (a tool-arg schema mismatch stopped its web searches fro
 
 - [Asia](Asia/README.md) — Japan, South Korea, Thailand, Vietnam
 - [Europe](Europe/README.md) — Italy, France, Spain (+ Europe-wide regional plans)
-- [Americas](Americas/README.md) — United States
+- [Americas](Americas/README.md) — United States, Canada, Mexico, Costa Rica, Panama, Guatemala, Brazil, Argentina, Chile, Peru, Colombia, Ecuador, Bolivia, Uruguay
 - [Oceania](Oceania/README.md) — _(to populate)_
 - [Middle East](Middle-East/README.md) — _(to populate)_
 - [Africa](Africa/README.md) — _(to populate)_
