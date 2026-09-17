@@ -1,0 +1,105 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sweden eSIM rates</title>
+<link rel="stylesheet" href="../style.css">
+</head><body><div class="wrap">
+<div class="crumb"><a href="../index.html">← All destinations</a></div>
+<header><h1>Sweden <span class="chip">Europe</span></h1>
+<p class="sub">Travel eSIM rates · click any column header to sort ·
+<a href="https://github.com/frindle/travel-esim-rates/blob/main/Europe/Sweden.md" target="_blank" rel="noopener">source .md</a></p></header>
+<div class="panel"><div class="controls">
+<label class="chk"><input type="checkbox" id="fHot"> Hotspot-capable only</label>
+<label class="chk"><input type="checkbox" id="fCap"> Capped plans only (hide unlimited)</label>
+</div></div>
+<div class="tablewrap"><table id="t"><thead><tr>
+<th data-c="provider">Provider <span class="arr">↕</span></th>
+<th data-c="plan">Plan</th>
+<th data-c="data" class="num">Data <span class="arr">↕</span></th>
+<th data-c="duration" class="num">Days <span class="arr">↕</span></th>
+<th data-c="price" class="num">Price <span class="arr">↕</span></th>
+<th data-c="pergb" class="num">$/GB <span class="arr">↕</span></th>
+<th data-c="hotspot">Hotspot <span class="arr">↕</span></th>
+<th data-c="rating" class="num">Rating <span class="arr">↕</span></th>
+<th data-c="confidence">Conf.</th>
+<th data-c="source">Source</th>
+<th data-c="seen">Seen</th>
+</tr></thead><tbody id="tb"></tbody></table></div>
+<footer>Ratings are provider-level Trustpilot approximations. Confidence:
+✅ sourced · ⚠️ approx/range · ❓ unverified.
+Cheapest $/GB row highlighted. Data from
+<a href="https://github.com/frindle/travel-esim-rates" target="_blank" rel="noopener">frindle/travel-esim-rates</a>.</footer>
+</div>
+<script>const ROWS=[{"provider": "Airalo", "plan": "Unlimited / 7 days", "data_gb": null, "unlimited": true, "duration_days": 7, "price": 27.0, "per_gb": null, "hotspot": "\u26a0\ufe0f", "hotspot_ok": false, "rating": 4.7, "confidence": "\u2705", "source": {"text": "Airalo Sweden eSIM", "url": "https://www.airalo.com/sweden-esim"}, "seen": "2026-09-17"}, {"provider": "Nomad", "plan": "1 GB / 7 days", "data_gb": 1.0, "unlimited": false, "duration_days": 7, "price": 4.5, "per_gb": 4.5, "hotspot": "\u26a0\ufe0f", "hotspot_ok": false, "rating": 4.2, "confidence": "\u2705", "source": {"text": "Nomad Sweden eSIM", "url": "https://www.nomadesim.com/sweden-eSIM"}, "seen": "2026-09-17"}, {"provider": "Nomad", "plan": "5 GB / 30 days", "data_gb": 5.0, "unlimited": false, "duration_days": 30, "price": 12.5, "per_gb": 2.5, "hotspot": "\u26a0\ufe0f", "hotspot_ok": false, "rating": 4.2, "confidence": "\u2705", "source": {"text": "Nomad Sweden eSIM", "url": "https://www.nomadesim.com/sweden-eSIM"}, "seen": "2026-09-17"}, {"provider": "Nomad", "plan": "Unlimited / 7 days", "data_gb": null, "unlimited": true, "duration_days": 7, "price": 25.0, "per_gb": null, "hotspot": "\u26a0\ufe0f", "hotspot_ok": false, "rating": 4.2, "confidence": "\u2705", "source": {"text": "Nomad Sweden eSIM", "url": "https://www.nomadesim.com/sweden-eSIM"}, "seen": "2026-09-17"}, {"provider": "aloSIM", "plan": "1 GB / 7 days", "data_gb": 1.0, "unlimited": false, "duration_days": 7, "price": 4.5, "per_gb": 4.5, "hotspot": "\u26a0\ufe0f", "hotspot_ok": false, "rating": 4.1, "confidence": "\u2705", "source": {"text": "aloSIM Sweden eSIM", "url": "https://alosim.com/destination/sweden/"}, "seen": "2026-09-17"}, {"provider": "aloSIM", "plan": "5 GB / 30 days", "data_gb": 5.0, "unlimited": false, "duration_days": 30, "price": 10.0, "per_gb": 2.0, "hotspot": "\u26a0\ufe0f", "hotspot_ok": false, "rating": 4.1, "confidence": "\u2705", "source": {"text": "aloSIM Sweden eSIM", "url": "https://alosim.com/destination/sweden/"}, "seen": "2026-09-17"}, {"provider": "Ubigi", "plan": "10 GB / 30 days", "data_gb": 10.0, "unlimited": false, "duration_days": 30, "price": 12.0, "per_gb": 1.2, "hotspot": "\u26a0\ufe0f", "hotspot_ok": false, "rating": 4.0, "confidence": "\u2705", "source": {"text": "Ubigi Sweden eSIM", "url": "https://cellulardata.ubigi.com/plans/sweden"}, "seen": "2026-09-17"}];
+function fmtGB(r){ if(r.unlimited) return 'Unlimited'; if(r.data_gb==null) return '—'; return r.data_gb+' GB'; }
+function fmtDur(r){ return r.duration_days==null?'—':r.duration_days+' d'; }
+function fmtUSD(v){ return v==null?'—':'$'+v.toFixed(2); }
+function fmtGBp(v){ return v==null?'—':'$'+v.toFixed(2); }
+function fmtRating(v){ return v==null?'—':v.toFixed(1); }
+function srcCell(s){ if(!s) return ''; if(s.url) return '<a href="'+s.url+'" target="_blank" rel="noopener">'+esc(s.text)+'</a>'; return esc(s.text); }
+function esc(s){ return (s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+// sort key: unlimited data sorts high; nulls always last
+function keyer(col){
+  return {
+    provider:r=>r.provider.toLowerCase(),
+    data:r=>r.unlimited?Number.POSITIVE_INFINITY:(r.data_gb==null?null:r.data_gb),
+    duration:r=>r.duration_days,
+    price:r=>r.price,
+    pergb:r=>r.per_gb,
+    hotspot:r=>r.hotspot_ok?0:1,
+    rating:r=>r.rating,
+    confidence:r=>r.confidence,
+    seen:r=>r.seen,
+  }[col];
+}
+function sortRows(rows,col,dir){
+  const k=keyer(col);
+  return rows.slice().sort((a,b)=>{
+    let x=k(a),y=k(b);
+    const xn=(x==null||Number.isNaN(x)), yn=(y==null||Number.isNaN(y));
+    if(xn&&yn) return 0; if(xn) return 1; if(yn) return -1; // nulls last both dirs
+    if(typeof x==='string') return dir*x.localeCompare(y);
+    return dir*(x-y);
+  });
+}
+
+let cur={col:'pergb',dir:1};
+function filtered(){
+  let r=ROWS;
+  if(document.getElementById('fHot').checked) r=r.filter(x=>x.hotspot_ok);
+  if(document.getElementById('fCap').checked) r=r.filter(x=>!x.unlimited);
+  return r;
+}
+function draw(){
+  const rows=sortRows(filtered(),cur.col,cur.dir);
+  // find cheapest per_gb for highlight
+  let best=null; rows.forEach(r=>{if(r.per_gb!=null&&(best==null||r.per_gb<best))best=r.per_gb;});
+  const tb=document.getElementById('tb');
+  tb.innerHTML = rows.length? rows.map(r=>{
+    const hi=(r.per_gb!=null&&r.per_gb===best)?' class="cheapest"':'';
+    return '<tr'+hi+'>'+
+      '<td>'+esc(r.provider)+'</td>'+
+      '<td>'+esc(r.plan)+'</td>'+
+      '<td class="num">'+fmtGB(r)+'</td>'+
+      '<td class="num">'+fmtDur(r)+'</td>'+
+      '<td class="num">'+fmtUSD(r.price)+'</td>'+
+      '<td class="num">'+fmtGBp(r.per_gb)+'</td>'+
+      '<td>'+esc(r.hotspot)+'</td>'+
+      '<td class="num">'+fmtRating(r.rating)+'</td>'+
+      '<td>'+esc(r.confidence)+'</td>'+
+      '<td>'+srcCell(r.source)+'</td>'+
+      '<td>'+esc(r.seen)+'</td></tr>';
+  }).join(''):'<tr><td colspan="11" class="empty">No plans match these filters.</td></tr>';
+  document.querySelectorAll('th[data-c]').forEach(th=>{
+    th.classList.toggle('sorted',th.dataset.c===cur.col);
+    const a=th.querySelector('.arr'); if(a) a.textContent=th.dataset.c===cur.col?(cur.dir>0?'▲':'▼'):'↕';
+  });
+}
+document.querySelectorAll('th[data-c]').forEach(th=>th.addEventListener('click',()=>{
+  const c=th.dataset.c; if(c==='plan')return;
+  if(cur.col===c) cur.dir*=-1; else {cur.col=c;cur.dir=(c==='provider'||c==='rating'||c==='data')?(c==='provider'?1:-1):1;}
+  draw();
+}));
+document.getElementById('fHot').addEventListener('change',draw);
+document.getElementById('fCap').addEventListener('change',draw);
+draw();
+</script></body></html>
