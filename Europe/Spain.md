@@ -1,6 +1,6 @@
 # Spain (Europe)
 
-Rates we've seen for Spain. Rating = provider Trustpilot (see [providers.md](../../providers.md)).
+Rates we've seen for Spain. Rating = provider Trustpilot (see [providers.md](../providers.md)).
 
 | Provider | Plan (data / duration) | Price (USD) | $/GB | Hotspot | Rating | Confidence | Source | Seen |
 |----------|------------------------|-------------|------|---------|--------|------------|--------|------|
@@ -9,4 +9,4 @@ Rates we've seen for Spain. Rating = provider Trustpilot (see [providers.md](../
 ## Notes
 
 - Only Ubigi's monthly subscription seeded so far. Needs research-population for Airalo/Saily/Nomad/Holafly Spain plans.
-- Europe-wide regional plans (see [Europe index](../README.md)) may beat this for short trips.
+- Europe-wide regional plans (see [Europe index](README.md)) may beat this for short trips.

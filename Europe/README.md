@@ -1,13 +1,13 @@
 # Europe
 
 Country rate pages for the Europe region, plus **Europe-wide regional plans** (a plan covering many
-European countries at once). Add a country by creating `Europe/<Country>/README.md`.
+European countries at once). Add a country by creating `Europe/<Country>.md`.
 
 | Country | Page | Seeded rates? |
 |---------|------|---------------|
-| Italy | [Italy/](Italy/README.md) | ✅ |
-| France | [France/](France/README.md) | ⚠️ approx |
-| Spain | [Spain/](Spain/README.md) | ✅ |
+| Italy | [Italy](Italy.md) | ✅ |
+| France | [France](France.md) | ⚠️ approx |
+| Spain | [Spain](Spain.md) | ✅ |
 
 ## Europe-wide regional plans (multi-country)
 

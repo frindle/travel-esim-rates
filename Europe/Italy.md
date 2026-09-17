@@ -1,6 +1,6 @@
 # Italy (Europe)
 
-Rates we've seen for Italy. Rating = provider Trustpilot (see [providers.md](../../providers.md)).
+Rates we've seen for Italy. Rating = provider Trustpilot (see [providers.md](../providers.md)).
 
 | Provider | Plan (data / duration) | Price (USD) | $/GB | Hotspot | Rating | Confidence | Source | Seen |
 |----------|------------------------|-------------|------|---------|--------|------------|--------|------|
@@ -13,4 +13,4 @@ Rates we've seen for Italy. Rating = provider Trustpilot (see [providers.md](../
 
 ## Notes
 
-- For Italy specifically, Europe-wide regional plans (see [Europe index](../README.md)) may beat single-country pricing for multi-country trips.
+- For Italy specifically, Europe-wide regional plans (see [Europe index](README.md)) may beat single-country pricing for multi-country trips.

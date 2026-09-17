@@ -1,6 +1,6 @@
 # Africa
 
-Country rate pages for the Africa region. Add a country by creating `Africa/<Country>/README.md`.
+Country rate pages for the Africa region. Add a country by creating `Africa/<Country>.md`.
 
 | Country | Page | Seeded rates? |
 |---------|------|---------------|

@@ -1,6 +1,6 @@
 # Oceania
 
-Country rate pages for the Oceania region. Add a country by creating `Oceania/<Country>/README.md`.
+Country rate pages for the Oceania region. Add a country by creating `Oceania/<Country>.md`.
 
 | Country | Page | Seeded rates? |
 |---------|------|---------------|

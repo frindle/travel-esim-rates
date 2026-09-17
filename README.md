@@ -6,14 +6,14 @@ Each country folder holds a `README.md` page listing the rates we've seen for th
 ## Structure
 
 ```
-<Region>/            e.g. Asia, Europe, Americas
-  <Country>/         e.g. Japan (a folder)
-    README.md        the rate list for that country
-Global/              provider-level global / multi-region plans (not country-specific)
+<Region>/            e.g. Asia, Europe, Americas (a folder, with a README.md index)
+  <Country>.md       e.g. Japan.md — the rate list for that country (one file per country)
+Global/README.md     provider-level global / multi-region plans (not country-specific)
 providers.md         provider-level summary (pricing model, hotspot, KYC, reputation)
 ```
 
-Example: Japan lives at [`Asia/Japan/README.md`](Asia/Japan/README.md).
+Example: Japan lives at [`Asia/Japan.md`](Asia/Japan.md). One file per country — provider-level
+traits live in [providers.md](providers.md), so there's no need for multiple pages per country.
 
 ## How to add a rate
 
@@ -23,7 +23,7 @@ Append a row to the country's rate table. Keep the columns consistent:
 |----------|------------------------|-------------|------|---------|------------|--------|------|
 
 - **$/GB** — only for capped plans; leave `—` for unlimited.
-- Add a new country by creating `<Region>/<Country>/README.md` and linking it from the region index.
+- Add a new country by creating `<Region>/<Country>.md` and linking it from the region index.
 
 ## Confidence legend
 

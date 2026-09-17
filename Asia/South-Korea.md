@@ -1,6 +1,6 @@
 # South Korea (Asia)
 
-Rates we've seen for South Korea. Rating = provider Trustpilot (see [providers.md](../../providers.md)).
+Rates we've seen for South Korea. Rating = provider Trustpilot (see [providers.md](../providers.md)).
 
 | Provider | Plan (data / duration) | Price (USD) | $/GB | Hotspot | Rating | Confidence | Source | Seen |
 |----------|------------------------|-------------|------|---------|--------|------------|--------|------|

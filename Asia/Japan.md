@@ -1,7 +1,7 @@
 # Japan (Asia)
 
-Rates we've seen for Japan. Rating = provider Trustpilot (see [providers.md](../../providers.md)).
-Seed source: 2026-09-17 research bake-off (`qwen3.6:35b-a3b`, source-cited). Confidence legend in [root README](../../README.md#confidence-legend).
+Rates we've seen for Japan. Rating = provider Trustpilot (see [providers.md](../providers.md)).
+Seed source: 2026-09-17 research bake-off (`qwen3.6:35b-a3b`, source-cited). Confidence legend in [root README](../README.md#confidence-legend).
 
 | Provider | Plan (data / duration) | Price (USD) | $/GB | Hotspot | Rating | Confidence | Source | Seen |
 |----------|------------------------|-------------|------|---------|--------|------------|--------|------|

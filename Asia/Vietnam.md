@@ -1,6 +1,6 @@
-# United States (Americas)
+# Vietnam (Asia)
 
-Rates we've seen for the United States. Rating = provider Trustpilot (see [providers.md](../../providers.md)).
+Rates we've seen for Vietnam. Rating = provider Trustpilot (see [providers.md](../providers.md)).
 
 | Provider | Plan (data / duration) | Price (USD) | $/GB | Hotspot | Rating | Confidence | Source | Seen |
 |----------|------------------------|-------------|------|---------|--------|------------|--------|------|
@@ -8,7 +8,7 @@ Rates we've seen for the United States. Rating = provider Trustpilot (see [provi
 
 ## Carrier resolution
 
-- **Saily** → T-Mobile
+- **Ubigi** → VNPT
 
 ## Notes
 

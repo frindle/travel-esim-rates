@@ -1,6 +1,6 @@
 # Thailand (Asia)
 
-Rates we've seen for Thailand. Rating = provider Trustpilot (see [providers.md](../../providers.md)).
+Rates we've seen for Thailand. Rating = provider Trustpilot (see [providers.md](../providers.md)).
 
 | Provider | Plan (data / duration) | Price (USD) | $/GB | Hotspot | Rating | Confidence | Source | Seen |
 |----------|------------------------|-------------|------|---------|--------|------------|--------|------|
@@ -15,5 +15,5 @@ Rates we've seen for Thailand. Rating = provider Trustpilot (see [providers.md](
 
 - ❓ The "$0.29/GB" figure was explicitly flagged during research as unconfirmed — the source page was
   truncated before the country-specific rates. Do not rely on it until re-verified. Also see the
-  provider-name caveat for "HelloRoam" in the [root README](../../README.md#data-provenance).
+  provider-name caveat for "HelloRoam" in the [root README](../README.md#data-provenance).
 - No trustworthy Thailand rates yet — a prime target for research-population.

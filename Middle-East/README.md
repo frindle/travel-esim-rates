@@ -1,6 +1,6 @@
 # Middle East
 
-Country rate pages for the Middle East region. Add a country by creating `Middle-East/<Country>/README.md`.
+Country rate pages for the Middle East region. Add a country by creating `Middle-East/<Country>.md`.
 
 | Country | Page | Seeded rates? |
 |---------|------|---------------|
