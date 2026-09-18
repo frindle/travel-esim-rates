@@ -63,6 +63,20 @@ CASES = [
     ("file with no rate table yields [] without raising (degenerate input)",
      lambda: target.parse_global(_no_table_md()), []),
 
+    # --- parse_global: contract documented on the function itself ----------
+    # The reference impl carries its flagging contract in the docstring; a
+    # mutation that drops or flips those lines must be visible here.
+    ("parse_global's docstring states every row gets global_coverage=True",
+     lambda: "global_coverage=True" in (target.parse_global.__doc__ or ""), True),
+
+    ("parse_global's docstring keeps its two-paragraph shape (summary + flag note)",
+     lambda: "\n\n" in (target.parse_global.__doc__ or ""), True),
+
+    # The new function sits between parse_country and collect() with PEP8
+    # double-blank separation; a mutation deleting either blank line must show.
+    ("build.py keeps the double-blank gap between parse_global and collect()",
+     lambda: "    return rows\n\n\ndef collect():" in pathlib.Path("build.py").read_text(encoding="utf-8"), True),
+
     # --- collect(): wiring --------------------------------------------------
     ("collect() adds exactly one README-derived entry: the Global one",
      lambda: [e for e in target.collect() if e["md_path"].lower().endswith("readme.md")],
