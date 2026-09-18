@@ -149,8 +149,8 @@ def collect():"""),
      "    let rows=e.rows.concat(GLOBAL_ROWS).filter(planMatches).filter(r=>rankKey(r,by)!=null);"),
 
     # 10) badge global rows in the index per-country tables.
-    ("""        '<td>'+esc(r.provider)+'</td><td>'+esc(r.plan)+'</td>+""",
-     """        '<td>'+esc(r.provider)+(r.global_coverage?' <span class="chip">Global</span>':'')+'<td>'+esc(r.plan)+'</td>+"""),
+    ("""        '<td>'+esc(r.provider)+'</td><td>'+esc(r.plan)+'</td>'+""",
+     """        '<td>'+esc(r.provider)+(r.global_coverage?' <span class="chip">Global</span>':'')+'</td><td>'+esc(r.plan)+'</td>'+"""),
 
     # 11) expose GLOBAL_ROWS to the index JS.
     ('<script>const DATA={all_json};{SORT_JS}',
