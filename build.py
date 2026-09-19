@@ -179,6 +179,13 @@ def parse_country(md_path):
     return {"title": title, "rows": rows}
 
 
+def parse_global(md_path):
+    rows = parse_country(md_path)["rows"]
+    for row in rows:
+        row["global_coverage"] = True
+    return rows
+
+
 def collect():
     data = []
     for region in REGIONS:
@@ -187,6 +194,15 @@ def collect():
             continue
         for md in sorted(rdir.glob("*.md")):
             if md.name.lower() == "readme.md":
+                if region != "Global":
+                    continue  # only Global/README.md is a rate table, not an index
+                data.append({
+                    "region": "Global",
+                    "country": "Global",
+                    "slug": "global",
+                    "md_path": f"{region}/{md.name}",
+                    "rows": parse_global(md),
+                })
                 continue
             parsed = parse_country(md)
             if not parsed["rows"]:
