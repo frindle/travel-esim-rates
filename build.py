@@ -299,11 +299,10 @@ function sortRows(rows,col,dir){
 """
 
 
-def render_country_page(entry, global_rows=()):
+def render_country_page(entry):
     title = entry["country"]
     region = entry["region"]
-    merged = list(entry["rows"]) + [dict(r, is_global=True) for r in global_rows]
-    rows_json = json.dumps(merged)
+    rows_json = json.dumps(entry["rows"])
     md_link = f"{GITHUB_REPO}/blob/main/{entry['md_path']}"
     body = f"""<!doctype html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -352,7 +351,7 @@ function draw(){{
   tb.innerHTML = rows.length? rows.map(r=>{{
     const hi=(r.per_gb!=null&&r.per_gb===best)?' class="cheapest"':'';
     return '<tr'+hi+'>'+
-      '<td>'+esc(r.provider)+(r.is_global?' <span class="chip">Global</span>':'')+'</td>'+
+      '<td>'+esc(r.provider)+'</td>'+
       '<td>'+esc(r.plan)+'</td>'+
       '<td class="num">'+fmtGB(r)+'</td>'+
       '<td class="num">'+fmtDur(r)+'</td>'+
@@ -555,9 +554,7 @@ function render(){{
   let out='';
   sel.forEach(cid=>{{
     const e=DATA.find(d=>d.region+'::'+d.slug===cid); if(!e)return;
-    const ge=DATA.find(d=>d.region==='Global');
-    const gRows=(ge?ge.rows:[]).map(r=>Object.assign({{}},r,{{is_global:true}})).filter(planMatches);
-    let rows=e.rows.concat(gRows).filter(r=>rankKey(r,by)!=null);
+    let rows=e.rows.filter(planMatches).filter(r=>rankKey(r,by)!=null);
     rows.sort((a,b)=>rankKey(a,by)-rankKey(b,by));
     rows=rows.slice(0,topN);
     out+='<div class="result-country">'+esc(e.country)+' <span class="muted">('+esc(e.region)+')</span> '+
@@ -568,7 +565,7 @@ function render(){{
       '<th class="num">Price</th><th class="num">$/GB</th><th>Hotspot</th><th class="num">Rating</th><th>Conf.</th></tr></thead><tbody>';
     rows.forEach((r,i)=>{{
       out+='<tr'+(i===0?' class="cheapest"':'')+'>'+
-        '<td>'+esc(r.provider)+(r.is_global?' <span class="chip">Global</span>':'')+'</td><td>'+esc(r.plan)+'</td>'+
+        '<td>'+esc(r.provider)+'</td><td>'+esc(r.plan)+'</td>'+
         '<td class="num">'+fmtGB(r)+'</td><td class="num">'+fmtDur(r)+'</td>'+
         '<td class="num">'+fmtUSD(r.price)+'</td><td class="num">'+fmtGBp(r.per_gb)+'</td>'+
         '<td>'+esc(r.hotspot)+'</td><td class="num">'+fmtRating(r.rating)+'</td><td>'+esc(r.confidence)+'</td></tr>';
@@ -590,8 +587,6 @@ render();
 
 def main():
     data = collect()
-    ge = _global_entry(data)
-    g_rows = list(ge["rows"]) if ge else []
     DOCS.mkdir(exist_ok=True)
     (DOCS / ".nojekyll").write_text("", encoding="utf-8")
     (DOCS / "style.css").write_text(STYLE, encoding="utf-8")
@@ -602,7 +597,7 @@ def main():
     for e in data:
         outdir = DOCS / e["region"]
         outdir.mkdir(parents=True, exist_ok=True)
-        (outdir / f"{e['slug']}.html").write_text(render_country_page(e, g_rows if e["region"] != "Global" else ()), encoding="utf-8")
+        (outdir / f"{e['slug']}.html").write_text(render_country_page(e), encoding="utf-8")
         total_rows += len(e["rows"])
 
     print(f"built {len(data)} country pages, {total_rows} rate rows -> {DOCS}")
