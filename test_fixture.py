@@ -86,8 +86,6 @@ def case5():
             and globalpage.count('"is_global": true') == 0)
 
 
-# Model-drafted; NOT yet read by a human.
-DRAFT_UNCONFIRMED = True
 
 CASES = [
     ("per-country page merges every global row with an is_global flag", case1, True),
