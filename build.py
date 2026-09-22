@@ -380,6 +380,82 @@ draw();
     return body
 
 
+def _global_entry(data):
+    for e in data:
+        if e["region"] == "Global":
+            return e
+    return None
+
+
+def globalRows(rows, by, minGB, topN, hotOnly, includeUnlim):
+    """Rank/filter the parsed Global rows with the SAME controls as country
+    rows on index.html (rankBy, minGB, topN, hotspot-only, include-unlimited)."""
+    def matches(r):
+        if hotOnly and not r.get("hotspot_ok"):
+            return False
+        if not includeUnlim and r.get("unlimited"):
+            return False
+        if minGB is not None:
+            if not r.get("unlimited") and (r.get("data_gb") is None or r["data_gb"] < minGB):
+                return False
+        return True
+
+    def key(r):
+        if by == "price":
+            v = r.get("price")
+        elif by == "rating":
+            v = -r["rating"] if r.get("rating") is not None else None  # higher first
+        else:
+            v = r.get("per_gb")
+        return v
+
+    out = [r for r in rows if matches(r) and key(r) is not None]
+    out.sort(key=key)
+    n = max(1, int(topN)) if topN is not None else 3
+    return out[:n]
+
+
+def renderGlobalSection(data):
+    """Dedicated 'Worldwide / Global' section for index.html. Exposes the parsed
+    global rows to the page's JS as GLOBAL_ROWS and lists them ranked/filtered
+    by the same controls as country rows."""
+    e = _global_entry(data)
+    if not e or not e["rows"]:
+        return ""
+    rows_json = json.dumps(e["rows"])
+    href = f"{e['region']}/{e['slug']}.html"
+    return (
+        '<div class="panel"><strong>Worldwide / Global</strong> '
+        '<a class="muted" href="' + href + '" style="font-weight:400;font-size:13px">full table \u2192</a></div>'
+        '<script>const GLOBAL_ROWS=' + rows_json + ';</script>'
+        '<div id="globalResults"></div>'
+        '<script>'
+        'function renderGlobalSection(){\n'
+        "  const by=$('rankBy').value;\n"
+        "  const mg=parseFloat($('minGB').value);\n"
+        "  const topN=Math.max(1,parseInt($('topN').value)||3);\n"
+        "  const rows=globalRows(GLOBAL_ROWS,by,isNaN(mg)?null:mg,topN,$('fHot').checked,$('fUnlim').checked);\n"
+        "  const box=$('globalResults');\n"
+        "  if(!rows.length){box.innerHTML='<div class=\"panel empty\">No global plans match your filters.</div>';return;}\n"
+        "  let out='<div class=\"panel tablewrap\"><table><thead><tr>'+\n"
+        "    '<th>Provider</th><th>Plan</th><th class=\"num\">Data</th><th class=\"num\">Days</th>'+\n"
+        "    '<th class=\"num\">Price</th><th class=\"num\">$/GB</th><th>Hotspot</th><th class=\"num\">Rating</th></tr></thead><tbody>';\n"
+        "  rows.forEach((r,i)=>{\n"
+        "    out+='<tr'+(i===0?' class=\"cheapest\"':'')+'>'+\n"
+        "      '<td>'+esc(r.provider)+'</td><td>'+esc(r.plan)+'</td>'+\n"
+        "      '<td class=\"num\">'+fmtGB(r)+'</td><td class=\"num\">'+fmtDur(r)+'</td>'+\n"
+        "      '<td class=\"num\">'+fmtUSD(r.price)+'</td><td class=\"num\">'+fmtGBp(r.per_gb)+'</td>'+\n"
+        "      '<td>'+esc(r.hotspot)+'</td><td class=\"num\">'+fmtRating(r.rating)+'</td></tr>';\n"
+        "  });\n"
+        "  out+='</tbody></table></div>';\n"
+        "  box.innerHTML=out;\n"
+        "}\n"
+        "['rankBy','minGB','topN','fHot','fUnlim'].forEach(id=>$(id).addEventListener('input',renderGlobalSection));\n"
+        "renderGlobalSection();\n"
+        "</script>"
+    )
+
+
 def render_index(data):
     # group for picker
     by_region = {}
@@ -407,6 +483,7 @@ def render_index(data):
 
     n_countries = len(data)
     n_regions = len(by_region)
+    global_section = renderGlobalSection(data)
 
     body = f"""<!doctype html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -443,6 +520,7 @@ def render_index(data):
 {pick_html}
 </div>
 
+{global_section}
 <div id="results"></div>
 
 <footer>Ratings are provider-level Trustpilot approximations. Confidence:
