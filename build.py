@@ -299,10 +299,11 @@ function sortRows(rows,col,dir){
 """
 
 
-def render_country_page(entry):
+def render_country_page(entry, global_rows=()):
     title = entry["country"]
     region = entry["region"]
-    rows_json = json.dumps(entry["rows"])
+    merged = list(entry["rows"]) + [dict(r, is_global=True) for r in global_rows]
+    rows_json = json.dumps(merged)
     md_link = f"{GITHUB_REPO}/blob/main/{entry['md_path']}"
     body = f"""<!doctype html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -350,8 +351,9 @@ function draw(){{
   const tb=document.getElementById('tb');
   tb.innerHTML = rows.length? rows.map(r=>{{
     const hi=(r.per_gb!=null&&r.per_gb===best)?' class="cheapest"':'';
+    const badge=r.is_global?' <span class="chip">Global</span>':'';
     return '<tr'+hi+'>'+
-      '<td>'+esc(r.provider)+'</td>'+
+      '<td>'+esc(r.provider)+badge+'</td>'+
       '<td>'+esc(r.plan)+'</td>'+
       '<td class="num">'+fmtGB(r)+'</td>'+
       '<td class="num">'+fmtDur(r)+'</td>'+
@@ -529,6 +531,7 @@ metric among plans matching your filters; verify live before buying.
 Data from <a href="{GITHUB_REPO}" target="_blank" rel="noopener">frindle/travel-esim-rates</a>.</footer>
 </div>
 <script>const DATA={all_json};{SORT_JS}
+const gRows=(function(){{var ge=DATA.find(d=>d.region==='Global');return ge?ge.rows.map(r=>Object.assign({{is_global:true}},r)):[];}})();
 const $=id=>document.getElementById(id);
 function picked(){{return [...document.querySelectorAll('.cpick:checked')].map(c=>c.value);}}
 function restore(){{try{{return JSON.parse(localStorage.getItem('esim.pick')||'[]');}}catch(e){{return[];}}}}
@@ -554,7 +557,7 @@ function render(){{
   let out='';
   sel.forEach(cid=>{{
     const e=DATA.find(d=>d.region+'::'+d.slug===cid); if(!e)return;
-    let rows=e.rows.filter(planMatches).filter(r=>rankKey(r,by)!=null);
+    let rows=e.rows.concat(gRows).filter(planMatches).filter(r=>rankKey(r,by)!=null);
     rows.sort((a,b)=>rankKey(a,by)-rankKey(b,by));
     rows=rows.slice(0,topN);
     out+='<div class="result-country">'+esc(e.country)+' <span class="muted">('+esc(e.region)+')</span> '+
@@ -564,8 +567,9 @@ function render(){{
       '<th>Provider</th><th>Plan</th><th class="num">Data</th><th class="num">Days</th>'+
       '<th class="num">Price</th><th class="num">$/GB</th><th>Hotspot</th><th class="num">Rating</th><th>Conf.</th></tr></thead><tbody>';
     rows.forEach((r,i)=>{{
+      const badge=r.is_global?' <span class="chip">Global</span>':'';
       out+='<tr'+(i===0?' class="cheapest"':'')+'>'+
-        '<td>'+esc(r.provider)+'</td><td>'+esc(r.plan)+'</td>'+
+        '<td>'+esc(r.provider)+badge+'</td><td>'+esc(r.plan)+'</td>'+
         '<td class="num">'+fmtGB(r)+'</td><td class="num">'+fmtDur(r)+'</td>'+
         '<td class="num">'+fmtUSD(r.price)+'</td><td class="num">'+fmtGBp(r.per_gb)+'</td>'+
         '<td>'+esc(r.hotspot)+'</td><td class="num">'+fmtRating(r.rating)+'</td><td>'+esc(r.confidence)+'</td></tr>';
@@ -593,11 +597,13 @@ def main():
     (DOCS / "rates.json").write_text(json.dumps(data, indent=1), encoding="utf-8")
     (DOCS / "index.html").write_text(render_index(data), encoding="utf-8")
 
+    ge = _global_entry(data)
     total_rows = 0
     for e in data:
         outdir = DOCS / e["region"]
         outdir.mkdir(parents=True, exist_ok=True)
-        (outdir / f"{e['slug']}.html").write_text(render_country_page(e), encoding="utf-8")
+        grows = () if e is ge else (ge["rows"] if ge else ())
+        (outdir / f"{e['slug']}.html").write_text(render_country_page(e, grows), encoding="utf-8")
         total_rows += len(e["rows"])
 
     print(f"built {len(data)} country pages, {total_rows} rate rows -> {DOCS}")
